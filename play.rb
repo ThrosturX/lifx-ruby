@@ -77,10 +77,15 @@ end.parse!
 client = LIFX::Client.lan
 
 client.discover! do |c| 
-	c.lights.with_label('Main')
+#	c.lights.with_label('Main')
+	c.lights.first
+rescue LIFX::Client::DiscoveryTimeout
+	$stderr.puts("Could not find any devices.")
+	exit 1
 end
 
-light = client.lights.with_label('Main')
+#light = client.lights.with_label('Main')
+light = client.lights.first
 
 if options[:color]
 	if options[:color] == 'white'
