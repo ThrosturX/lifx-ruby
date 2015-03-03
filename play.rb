@@ -76,12 +76,14 @@ end.parse!
 
 client = LIFX::Client.lan
 
-client.discover! do |c| 
-#	c.lights.with_label('Main')
+begin
+	client.discover! do |c| 
+	#	c.lights.with_label('Main')
 	c.lights.first
+	end
 rescue LIFX::Client::DiscoveryTimeout
-	$stderr.puts("Could not find any devices.")
-	exit 1
+$stderr.puts("Could not find any devices.")
+exit 1
 end
 
 #light = client.lights.with_label('Main')
